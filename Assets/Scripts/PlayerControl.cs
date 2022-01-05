@@ -5,7 +5,7 @@ public class PlayerControl : MonoBehaviour
 
 {
     private float health = 3.0f;
-    private int score = 10;
+    private int score = 100;
     private bool swatterPressed = false;
     private bool isReleased = true;
     private int countFrame = 0;
@@ -23,7 +23,6 @@ public class PlayerControl : MonoBehaviour
         //make cursor invisible
         Cursor.visible = false;
         transform.Rotate(-45, 0, 0);
-
     }
 
     // Update is called once per frame
@@ -108,4 +107,6 @@ public class PlayerControl : MonoBehaviour
     {
         Time.timeScale = 0;
     }
+
+
 }
