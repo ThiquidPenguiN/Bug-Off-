@@ -15,6 +15,7 @@ TagManager:
   - HeartFull
   - HeartHalf
   - Heart
+  - ScoreDisplay
   layers:
   - Default
   - TransparentFX
