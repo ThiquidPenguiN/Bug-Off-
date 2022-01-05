@@ -5,7 +5,7 @@ public class EnemyMovement : MonoBehaviour
 
     private GameObject playerObject;
     private GameObject otherEnemyObject;
-    private GameObject playerControlObject;
+    private GameObject gameDataObject;
     private Collider thisCollider;
     private float distance = 15;
     public static bool spawnDifference = false;
@@ -14,7 +14,7 @@ public class EnemyMovement : MonoBehaviour
     {
         //initializion variables
         playerObject = GameObject.Find("Player");
-        playerControlObject = GameObject.Find("PlayerParent");
+        gameDataObject = GameObject.Find("GameData");
         otherEnemyObject = GameObject.Find("Enemy");
 
     }
@@ -44,10 +44,10 @@ public class EnemyMovement : MonoBehaviour
         //detect player collision
         if (other.tag == "Player")
         {
-            if (playerControlObject.GetComponent<PlayerControl>() != null)
+            if (gameDataObject.GetComponent<GameDataScript>() != null)
             {
                 DisableCollider();
-                playerControlObject.GetComponent<PlayerControl>().Damage();
+                gameDataObject.GetComponent<GameDataScript>().Damage();
                 Destroy(this.gameObject);
             }
 
@@ -56,19 +56,16 @@ public class EnemyMovement : MonoBehaviour
         {
             //detect contact with swatter object
 
-            if (playerControlObject.GetComponent<PlayerControl>() != null)
+            if (gameDataObject.GetComponent<GameDataScript>() != null)
             {
                 DisableCollider();
-                playerControlObject.GetComponent<PlayerControl>().Score();
+                gameDataObject.GetComponent<GameDataScript>().Score();
                 Destroy(this.gameObject);
 
             }
         }
 
     }
-
-
-
 
     //keep distance from other enemey objects
     void KeepDistanceFromEnemy()
