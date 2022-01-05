@@ -4,10 +4,11 @@ public class PlayerControl : MonoBehaviour
 
 
 {
-    private float health = 3.0f;
-    private int score = 10;
+    public GameObject fullHeartPrefab;
+    public GameObject halfHeartPrefab;
+    private int health = 6; //2 units = 1 full heart
+    private int score = 100;
     private bool swatterPressed = false;
-    private bool isReleased = true;
     private int countFrame = 0;
     private int waitFrames = 29;
     private BoxCollider swatterCollider;
@@ -18,11 +19,12 @@ public class PlayerControl : MonoBehaviour
     {
         //initializion variables
         swatterCollider = GameObject.FindGameObjectWithTag("Swatter").GetComponent<BoxCollider>();
-        Debug.Log(health.ToString());
 
         //make cursor invisible
         Cursor.visible = false;
         transform.Rotate(-45, 0, 0);
+
+        DrawHearts(health);
 
     }
 
@@ -53,15 +55,6 @@ public class PlayerControl : MonoBehaviour
             }
         }
 
-
-        //if health falls below 3, gameover
-        if (health <= 0)
-        {
-            Debug.Log("Game Over");
-            PauseGame();
-            gameOver = true;
-        }
-
         //countdown from 100 enemies. @ 0 enemies, game over
         if (score <= 0)
         {
@@ -73,8 +66,8 @@ public class PlayerControl : MonoBehaviour
 
     public void Damage()
     {
-        health--;
-        Debug.Log(health.ToString());
+        health = health - 2;
+        DrawHearts(health);
     }
 
     public void Score()
@@ -89,7 +82,6 @@ public class PlayerControl : MonoBehaviour
         if (!swatterPressed)
         {
             transform.Rotate(45, 0, 0);
-            //enable-disable swatter collider to prevent cheese
             swatterPressed = true;
         }
         else
@@ -107,5 +99,54 @@ public class PlayerControl : MonoBehaviour
     void PauseGame()
     {
         Time.timeScale = 0;
+    }
+
+    private void DrawHearts(float currentHealth)
+    {
+        int heartPosDefaultX = -28;
+        int heartPosOffsetX = 5;
+
+        GameObject[] heartObjects;
+        heartObjects = GameObject.FindGameObjectsWithTag("Heart");
+
+        //destroy existing hearts for switch below
+        if (heartObjects != null)
+        {
+            foreach (GameObject heart in heartObjects)
+            {
+                Destroy(heart);
+            }
+        }
+
+        switch (currentHealth)
+        {
+            case 6:
+                Instantiate(fullHeartPrefab, new Vector3(heartPosDefaultX, 5, 21), fullHeartPrefab.transform.rotation);
+                Instantiate(fullHeartPrefab, new Vector3(heartPosDefaultX + (heartPosOffsetX), 5, 21), fullHeartPrefab.transform.rotation);
+                Instantiate(fullHeartPrefab, new Vector3(heartPosDefaultX + (heartPosOffsetX * 2), 5, 21), fullHeartPrefab.transform.rotation);
+                break;
+            case 5:
+                //something
+                break;
+            case 4:
+                Instantiate(fullHeartPrefab, new Vector3(heartPosDefaultX, 5, 21), fullHeartPrefab.transform.rotation);
+                Instantiate(fullHeartPrefab, new Vector3(heartPosDefaultX + (heartPosOffsetX), 5, 21), fullHeartPrefab.transform.rotation);
+                break;
+            case 3:
+                //something
+                break;
+            case 2:
+                Instantiate(fullHeartPrefab, new Vector3(heartPosDefaultX, 5, 21), fullHeartPrefab.transform.rotation);
+                break;
+            case 1:
+                //something
+                break;
+            default:
+                Debug.Log("Game Over");
+                gameOver = true;
+                PauseGame();
+                break;
+        }
+
     }
 }
