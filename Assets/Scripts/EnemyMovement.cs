@@ -30,8 +30,6 @@ public class EnemyMovement : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
-        thisCollider = GetComponent<Collider>();
-        thisCollider.enabled = false;
 
         //needed to control number of spawned objects
         spawnDifference = true;
@@ -48,22 +46,25 @@ public class EnemyMovement : MonoBehaviour
         {
             if (playerControlObject.GetComponent<PlayerControl>() != null)
             {
+                DisableCollider();
                 playerControlObject.GetComponent<PlayerControl>().Damage();
                 Destroy(this.gameObject);
             }
 
         }
-
-        //detect contact with swatter object
-        if (other.tag == "Swatter")
+        else if (other.tag == "Swatter")
         {
+            //detect contact with swatter object
+
             if (playerControlObject.GetComponent<PlayerControl>() != null)
             {
+                DisableCollider();
                 playerControlObject.GetComponent<PlayerControl>().Score();
+                Destroy(this.gameObject);
+
             }
         }
 
-        Destroy(this.gameObject);
     }
 
 
@@ -82,5 +83,11 @@ public class EnemyMovement : MonoBehaviour
             }
         }
 
+    }
+
+    void DisableCollider()
+    {
+        thisCollider = GetComponent<Collider>();
+        thisCollider.enabled = false;
     }
 }
