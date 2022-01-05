@@ -332,7 +332,7 @@ GameObject:
   - component: {fileID: 577147470}
   m_Layer: 0
   m_Name: GameData
-  m_TagString: Untagged
+  m_TagString: GameData
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -439,6 +439,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0acc9a7dcca39bd4484eccd24b9d25d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fullHeartPrefab: {fileID: 1249078638700540240, guid: a37e7b64aa05636438cbf1964d989b6d, type: 3}
+  halfHeartPrefab: {fileID: 7953828088478069859, guid: 9e04afbee62088d4e953bfc655fb2f7a, type: 3}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -656,8 +658,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a7065d955870554d8788c9f1cbe4cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fullHeartPrefab: {fileID: 1249078638700540240, guid: a37e7b64aa05636438cbf1964d989b6d, type: 3}
-  halfHeartPrefab: {fileID: 7953828088478069859, guid: 9e04afbee62088d4e953bfc655fb2f7a, type: 3}
 --- !u!4 &816843670
 Transform:
   m_ObjectHideFlags: 0
