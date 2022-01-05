@@ -12,6 +12,9 @@ TagManager:
   - Spawn3
   - Spawn4
   - PlayerControl
+  - HeartFull
+  - HeartHalf
+  - Heart
   layers:
   - Default
   - TransparentFX

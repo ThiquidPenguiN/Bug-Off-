@@ -43,7 +43,6 @@ public class SpawnManager : MonoBehaviour
                 spawnPoint[2] = new Vector3(randomSpawnX, transform.position.y, 25);
                 spawnPoint[3] = new Vector3(randomSpawnX, transform.position.y, -25);
                 Instantiate(enemyPrefab, spawnPoint[randomSpawn], transform.rotation);
-                //Debug.Log(spawnPoint[randomSpawn].ToString());
                 currentSpawned += 1;
             }
             else
