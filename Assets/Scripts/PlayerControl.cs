@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
@@ -17,9 +15,10 @@ public class PlayerControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //initializion variables
         swatterCollider = GameObject.FindGameObjectWithTag("Swatter").GetComponent<BoxCollider>();
-
         Debug.Log(health.ToString());
+
         //make cursor invisible
         Cursor.visible = false;
         transform.Rotate(-45, 0, 0);
@@ -34,7 +33,7 @@ public class PlayerControl : MonoBehaviour
         float mouseVertical = Input.GetAxis("Mouse Y");
         transform.Translate(mouseHorizontal, 0, mouseVertical, Space.World);
 
-        //swat
+        //Swatter controls
         if (Input.GetKey(KeyCode.Space))
         {
             SwatterPressed();
@@ -44,6 +43,7 @@ public class PlayerControl : MonoBehaviour
         {
             transform.Rotate(-45, 0, 0);
             swatterPressed = false;
+            //enable-disable swatter collider to prevent cheese
             swatterCollider.enabled = true;
             countFrame = 0;
         }
@@ -61,19 +61,23 @@ public class PlayerControl : MonoBehaviour
         Debug.Log(score.ToString());
     }
 
+    //Swatter Logic for controls
     private void SwatterPressed()
     {
         if (!swatterPressed)
         {
             transform.Rotate(45, 0, 0);
+            //enable-disable swatter collider to prevent cheese
             swatterPressed = true;
         }
         else
         {
             countFrame++;
         }
+        //disable collider after several frames, to allow collision detection before disable
         if (countFrame > waitFrames)
         {
+            //enable-disable swatter collider to prevent cheese
             swatterCollider.enabled = false;
         }
     }

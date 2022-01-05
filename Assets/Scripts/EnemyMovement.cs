@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
@@ -12,9 +10,9 @@ public class EnemyMovement : MonoBehaviour
     private float distance = 15;
     public static bool spawnDifference = false;
 
-    // Start is called before the first frame update
     void Start()
     {
+        //initializion variables
         playerObject = GameObject.Find("Player");
         playerControlObject = GameObject.Find("PlayerParent");
         otherEnemyObject = GameObject.Find("Enemy");
@@ -24,18 +22,18 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
-
         //Chase player
         transform.LookAt(playerObject.transform.position);
-        transform.position = Vector3.MoveTowards(transform.position, playerObject.transform.position, Time.deltaTime  * 10);   
+        transform.position = Vector3.MoveTowards(transform.position, playerObject.transform.position, Time.deltaTime * 10);
     }
 
     private void OnTriggerEnter(Collider other)
     {
+
         thisCollider = GetComponent<Collider>();
         thisCollider.enabled = false;
 
+        //needed to control number of spawned objects
         spawnDifference = true;
         while (spawnDifference)
         {
@@ -45,6 +43,7 @@ public class EnemyMovement : MonoBehaviour
             }
         }
 
+        //detect player collision
         if (other.tag == "Player")
         {
             if (playerControlObject.GetComponent<PlayerControl>() != null)
@@ -55,6 +54,7 @@ public class EnemyMovement : MonoBehaviour
 
         }
 
+        //detect contact with swatter object
         if (other.tag == "Swatter")
         {
             if (playerControlObject.GetComponent<PlayerControl>() != null)
@@ -66,21 +66,13 @@ public class EnemyMovement : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    private void OnTriggerExit(Collider other)
-    {
 
-    }
 
-    //needed to control number of spawned objects
-    void OnCollisionEnter(Collision collision)
-    {
 
-    }
-
+    //keep distance from other enemey objects
     void KeepDistanceFromEnemy()
     {
         otherEnemyObject = GameObject.Find("Enemy");
-        //keep distance from other enemey objects
         if (otherEnemyObject)
         {
             if (SpawnManager.currentSpawned > 1)
