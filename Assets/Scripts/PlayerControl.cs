@@ -8,7 +8,7 @@ public class PlayerControl : MonoBehaviour
     private int countFrame = 0;
     private int waitFrames = 29;
     private BoxCollider swatterCollider;
-    
+
 
     // Start is called before the first frame update
     void Start()
