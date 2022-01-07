@@ -10,6 +10,13 @@ public class EnemyMovement : MonoBehaviour
     private float distance = 15;
     public static bool spawnDifference = false;
 
+    //world bounds, z-axis is different to keep object in frame 100%
+    private float xPositive = 32.4f;
+    private float xNegative = -32.4f;
+    private float zPositive = 24.3f;
+    private float zNegative = -24.3f;
+    Vector3 objectPosition;
+
     void Start()
     {
         //initializion variables
@@ -25,6 +32,7 @@ public class EnemyMovement : MonoBehaviour
         //Chase player
         transform.LookAt(playerObject.transform.position);
         transform.position = Vector3.MoveTowards(transform.position, playerObject.transform.position, Time.deltaTime * 10);
+        Boundaries(gameObject);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -86,5 +94,31 @@ public class EnemyMovement : MonoBehaviour
     {
         thisCollider = GetComponent<Collider>();
         thisCollider.enabled = false;
+    }
+
+    private void Boundaries(GameObject someObject)
+    {
+        objectPosition = someObject.transform.position;
+
+        if (someObject.transform.position.x > xPositive)
+        {
+            someObject.transform.position = new Vector3(xPositive, someObject.transform.position.y, someObject.transform.position.z);
+        }
+
+        if (someObject.transform.position.x < xNegative)
+        {
+            someObject.transform.position = new Vector3(xNegative, someObject.transform.position.y, someObject.transform.position.z);
+        }
+
+        if (someObject.transform.position.z > zPositive)
+        {
+            someObject.transform.position = new Vector3(someObject.transform.position.x, someObject.transform.position.y, zPositive);
+        }
+
+        if (someObject.transform.position.z < zNegative)
+        {
+            someObject.transform.position = new Vector3(someObject.transform.position.x, someObject.transform.position.y, zNegative);
+        }
+
     }
 }
