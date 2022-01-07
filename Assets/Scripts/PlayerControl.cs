@@ -36,30 +36,33 @@ public class PlayerControl : MonoBehaviour
         //allow control of player if game is active
         if (!GameDataScript.gameOver)
         {
-            //Mouse movement for player
-            float mouseHorizontal = Input.GetAxis("Mouse X");
-            float mouseVertical = Input.GetAxis("Mouse Y");
-            transform.Translate(mouseHorizontal, 0, mouseVertical, Space.World);
-            Boundaries(gameObject);
-            
-            //Swatter controls
-            if (Input.GetKey(KeyCode.Space))
-            {
-                SwatterPressed();
-            }
-
-            if (Input.GetKeyUp(KeyCode.Space))
-            {
-                transform.Rotate(-45, 0, 0);
-                swatterPressed = false;
-                //enable-disable swatter collider to prevent cheese
-                swatterCollider.enabled = true;
-                countFrame = 0;
-            }
+            InputControls();
         }
     }
 
+    private void InputControls()
+    {
+        //Mouse movement for player
+        float mouseHorizontal = Input.GetAxis("Mouse X");
+        float mouseVertical = Input.GetAxis("Mouse Y");
+        transform.Translate(mouseHorizontal, 0, mouseVertical, Space.World);
+        Boundaries(gameObject);
 
+        //Swatter controls
+        if (Input.GetKey(KeyCode.Space))
+        {
+            SwatterPressed();
+        }
+
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            transform.Rotate(-45, 0, 0);
+            swatterPressed = false;
+            //enable-disable swatter collider to prevent cheese
+            swatterCollider.enabled = true;
+            countFrame = 0;
+        }
+    }
 
     //Swatter Logic for controls
     private void SwatterPressed()
