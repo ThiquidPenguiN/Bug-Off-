@@ -9,6 +9,13 @@ public class PlayerControl : MonoBehaviour
     private int waitFrames = 29;
     private BoxCollider swatterCollider;
 
+    //world bounds, z-axis is different to keep object in frame 100%
+    private float xPositive = 32.4f;
+    private float xNegative = -32.4f;
+    private float zPositive = 21.0f;
+    private float zNegative = -24.3f;
+    Vector3 objectPosition;
+
 
     // Start is called before the first frame update
     void Start()
@@ -33,7 +40,8 @@ public class PlayerControl : MonoBehaviour
             float mouseHorizontal = Input.GetAxis("Mouse X");
             float mouseVertical = Input.GetAxis("Mouse Y");
             transform.Translate(mouseHorizontal, 0, mouseVertical, Space.World);
-
+            Boundaries(gameObject);
+            
             //Swatter controls
             if (Input.GetKey(KeyCode.Space))
             {
@@ -49,6 +57,7 @@ public class PlayerControl : MonoBehaviour
                 countFrame = 0;
             }
         }
+
 
 
     }
@@ -75,6 +84,30 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
+    private void Boundaries(GameObject someObject)
+    {
+        objectPosition = someObject.transform.position;
 
+        if (someObject.transform.position.x > xPositive)
+        {
+            someObject.transform.position = new Vector3(xPositive, someObject.transform.position.y, someObject.transform.position.z);
+        }
+
+        if (someObject.transform.position.x < xNegative)
+        {
+            someObject.transform.position = new Vector3(xNegative, someObject.transform.position.y, someObject.transform.position.z);
+        }
+
+        if (someObject.transform.position.z > zPositive)
+        {
+            someObject.transform.position = new Vector3(someObject.transform.position.x, someObject.transform.position.y, zPositive);
+        }
+
+        if (someObject.transform.position.z < zNegative)
+        {
+            someObject.transform.position = new Vector3(someObject.transform.position.x, someObject.transform.position.y, zNegative);
+        }
+
+    }
 
 }
