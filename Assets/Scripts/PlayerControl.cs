@@ -57,9 +57,6 @@ public class PlayerControl : MonoBehaviour
                 countFrame = 0;
             }
         }
-
-
-
     }
 
 
